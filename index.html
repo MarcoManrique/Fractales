@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <title>Hello, world!</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Compresion de Imagenes por metodos de Fractales y Poligonos</h1>
+        <h3>Seleccione que metodo desea usar, suba la imagen y observe los resultados</h3>
+        <div class="form-check">
+            <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="optionsRadios" id="fractal" value="option1"
+                    checked="">
+                Por fractales
+            </label>
+        </div>
+        <div class="form-check">
+            <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="optionsRadios" id="poligono" value="option2">
+                Por poligonos
+            </label>
+        </div>
+        <br>
+        <div class="input-group">
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="imagen" accept="image/*"
+                    aria-describedby="inputGroupFileAddon04">
+                <label id="txtimagen" class="custom-file-label" for="imagen">Escoge algun archivo</label>
+            </div>
+        </div>
+
+        <button type="button" class="btn btn-secondary btn-block mt-3" id="enviar">Comprimir</button>
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar" aria-valuenow="75"
+                aria-valuemin="0" aria-valuemax="100" style="width: 50%"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <img id="img_prev" src="http://placehold.it/400x400" width="400" height="400" alt="">
+            </div>
+            <div class="col-md-6">
+                <img id="img_res" src="http://placehold.it/400x400" width="400" height="400" alt="">
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="programa.js"></script>
+</body>
+
+</html>
