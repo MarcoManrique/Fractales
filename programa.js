@@ -23,6 +23,7 @@ function botonesALaNormalidad(button) {
     });
 }
 $(document).ready(function () {
+
     let progreso = $('.progress');
     progreso.hide();
     var enviar = $('#enviar');
@@ -35,46 +36,79 @@ $(document).ready(function () {
         if (imagen.files[0] === undefined) {
             alert('No hay imagen')
         } else {
+            var request = new XMLHttpRequest();
+            var formData = new FormData();
+            formData.append('imagen', imagen.files[0]);
             enviar.html('Comprimiendo . . . ');
             enviar.attr('disabled', true);
             progreso.show();
-            var formData = new FormData();
-            formData.append('imagen', imagen.files[0], imagen.files[0].name);
-            let headersRest = {
-                method: 'POST',
-                body: formData
-            };
             if ($('#fractal').prop('checked') == true) {
-                new Promise((resolve, reject) => {
-                    setTimeout(function () {
+                request.responseType = "arraybuffer";
+                request.onreadystatechange = function () {
+                    if (request.readyState === 0) {
+                        $('.progress-bar').css('width', '25%');
+                    }
+                    if (request.readyState === 1) {
+                        $('#img_res').attr('src', 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==');
+                        $('#img_01').attr('src', 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==');
+                        $('#img_02').attr('src', 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==');
+                        $('.progress-bar').css('width', '50%');
+                    }
+                    if (request.readyState === 2) {
+                        $('.progress-bar').css('width', '75%');
+                    }
+                    if (request.readyState === 3) {
+                        $('.progress-bar').css('width', '80%');
+                    }
+                    if (request.readyState === 4 && request.status == 200) {
                         $('.progress-bar').css('width', '100%');
+                        $('#img_res').show();
+                        let b64 = btoa(String.fromCharCode.apply(null, new Uint8Array(request.response)))
+                        $('#img_res').attr('src', 'data:image/jpeg;base64,' + b64);
                         botonesALaNormalidad(enviar);
-                    }, 2000);
-                });
-
-                // fetch('link', headersRest).then(response => {
-                //     return response.json();
-                // }).then(data => {
-                //     $('.progress-bar').css('width', '100%');
-                //     alert('imagen comprimida exitosamente')
-                //     $('#img_res').show();
-                //     $('#img_res').attr('src', data)
-                //     botonesALaNormalidad(enviar);
-                // })
+                    }
+                    if (request.readyState === 4 && request.status != 200){
+                        alert('Error de conexion con el servidor. Intente con un archivo de menor tamaño.')
+                    }
+                }
+                request.open('post', 'https://compresionappback.herokuapp.com/api/comprimirFractal/');
+                request.send(formData);
             }
             if ($('#poligono').prop('checked') == true) {
-                // fetch('link', headersRest).then(response => {
-                //     return response.json();
-                // }).then(data => {
-                //     $('.progress-bar').css('width', '100%');
-                //     alert('imagen comprimida exitosamente')
-                //     $('#img_res').show();
-                //     $('#img_res').attr('src', data)
-                //     botonesALaNormalidad(enviar);
-                // })
+                request.onreadystatechange = function () {
+                    if (request.readyState === 0) {
+                        $('.progress-bar').css('width', '25%');
+                    }
+                    if (request.readyState === 1) {
+                        $('#img_res').attr('src', 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==');
+                        $('#img_01').attr('src', 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==');
+                        $('#img_02').attr('src', 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==');
+                        $('.progress-bar').css('width', '50%');
+                    }
+                    if (request.readyState === 2) {
+                        $('.progress-bar').css('width', '75%');
+                    }
+                    if (request.readyState === 3) {
+                        $('.progress-bar').css('width', '80%');
+                    }
+                    if (request.readyState === 4 && request.status == 200) {
+                        respuesta = JSON.parse(request.response);
+                        $('.progress-bar').css('width', '100%');
+                        $('#img_res').show();
+                        // let b64 = btoa(String.fromCharCode.apply(null, new Uint8Array(request.response)))
+                        $('#img_res').attr('src', 'data:image/jpeg;base64,' + respuesta['01']);
+                        $('#img_01').attr('src', 'data:image/jpeg;base64,' + respuesta['02']);
+                        $('#img_02').attr('src', 'data:image/jpeg;base64,' + respuesta['03']);
+                        botonesALaNormalidad(enviar);
+                    }
+                    if (request.readyState === 4 && request.status != 200){
+                        alert('Error de conexion con el servidor. Intente con un archivo de menor tamaño.')
+                    }
+                }
+                request.open('post', 'https://compresionappback.herokuapp.com/api/comprimirPoligono/');
+                request.send(formData);
+
             }
-            console.log(formData);
-            
         }
     })
 })
