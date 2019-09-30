@@ -42,8 +42,8 @@ $(document).ready(function () {
             enviar.html('Comprimiendo . . . ');
             enviar.attr('disabled', true);
             progreso.show();
-            if ($('#fractal').prop('checked') == true) {
-                request.responseType = "arraybuffer";
+            if ($('#fractalcolores').prop('checked') == true) {
+                // request.responseType = "arraybuffer";
                 request.onreadystatechange = function () {
                     if (request.readyState === 0) {
                         $('.progress-bar').css('width', '25%');
@@ -61,17 +61,51 @@ $(document).ready(function () {
                         $('.progress-bar').css('width', '80%');
                     }
                     if (request.readyState === 4 && request.status == 200) {
+                        respuesta = JSON.parse(request.response);
                         $('.progress-bar').css('width', '100%');
                         $('#img_res').show();
-                        let b64 = btoa(String.fromCharCode.apply(null, new Uint8Array(request.response)))
-                        $('#img_res').attr('src', 'data:image/jpeg;base64,' + b64);
+                        // let b64 = btoa(String.fromCharCode.apply(null, new Uint8Array(request.response)))
+                        $('#img_res').attr('src', 'data:image/jpeg;base64,' + respuesta[01]);
                         botonesALaNormalidad(enviar);
                     }
                     if (request.readyState === 4 && request.status != 200){
                         alert('Error de conexion con el servidor. Intente con un archivo de menor tamaño.')
                     }
                 }
-                request.open('post', 'https://compresionappback.herokuapp.com/api/comprimirFractal/');
+                request.open('post', 'https://compresionappback.herokuapp.com/api/comprimirFractalColor/');
+                request.send(formData);
+            }
+            if ($('#fractalgrises').prop('checked') == true) {
+                // request.responseType = "arraybuffer";
+                request.onreadystatechange = function () {
+                    if (request.readyState === 0) {
+                        $('.progress-bar').css('width', '25%');
+                    }
+                    if (request.readyState === 1) {
+                        $('#img_res').attr('src', 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==');
+                        $('#img_01').attr('src', 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==');
+                        $('#img_02').attr('src', 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==');
+                        $('.progress-bar').css('width', '50%');
+                    }
+                    if (request.readyState === 2) {
+                        $('.progress-bar').css('width', '75%');
+                    }
+                    if (request.readyState === 3) {
+                        $('.progress-bar').css('width', '80%');
+                    }
+                    if (request.readyState === 4 && request.status == 200) {
+                        respuesta = JSON.parse(request.response);
+                        $('.progress-bar').css('width', '100%');
+                        $('#img_res').show();
+                        // let b64 = btoa(String.fromCharCode.apply(null, new Uint8Array(request.response)))
+                        $('#img_res').attr('src', 'data:image/jpeg;base64,' + respuesta[01]);
+                        botonesALaNormalidad(enviar);
+                    }
+                    if (request.readyState === 4 && request.status != 200){
+                        alert('Error de conexion con el servidor. Intente con un archivo de menor tamaño.')
+                    }
+                }
+                request.open('post', 'https://compresionappback.herokuapp.com/api/comprimirFractalGrises/');
                 request.send(formData);
             }
             if ($('#poligono').prop('checked') == true) {
