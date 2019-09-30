@@ -65,11 +65,12 @@ $(document).ready(function () {
                         $('.progress-bar').css('width', '100%');
                         $('#img_res').show();
                         // let b64 = btoa(String.fromCharCode.apply(null, new Uint8Array(request.response)))
-                        $('#img_res').attr('src', 'data:image/jpeg;base64,' + respuesta[01]);
+                        $('#img_res').attr('src', 'data:image/jpeg;base64,' + respuesta['01']);
                         botonesALaNormalidad(enviar);
                     }
                     if (request.readyState === 4 && request.status != 200){
-                        alert('Error de conexion con el servidor. Intente con un archivo de menor tamaño.')
+                        alert('Error de conexion con el servidor. Intente con un archivo de menor tamaño.');
+                        botonesALaNormalidad(enviar);
                     }
                 }
                 request.open('post', 'https://compresionappback.herokuapp.com/api/comprimirFractalColor/');
@@ -98,11 +99,12 @@ $(document).ready(function () {
                         $('.progress-bar').css('width', '100%');
                         $('#img_res').show();
                         // let b64 = btoa(String.fromCharCode.apply(null, new Uint8Array(request.response)))
-                        $('#img_res').attr('src', 'data:image/jpeg;base64,' + respuesta[01]);
+                        $('#img_res').attr('src', 'data:image/jpeg;base64,' + respuesta['01']);
                         botonesALaNormalidad(enviar);
                     }
                     if (request.readyState === 4 && request.status != 200){
-                        alert('Error de conexion con el servidor. Intente con un archivo de menor tamaño.')
+                        alert('Error de conexion con el servidor. Intente con un archivo de menor tamaño.');
+                        botonesALaNormalidad(enviar);
                     }
                 }
                 request.open('post', 'https://compresionappback.herokuapp.com/api/comprimirFractalGrises/');
@@ -136,7 +138,8 @@ $(document).ready(function () {
                         botonesALaNormalidad(enviar);
                     }
                     if (request.readyState === 4 && request.status != 200){
-                        alert('Error de conexion con el servidor. Intente con un archivo de menor tamaño.')
+                        alert('Error de conexion con el servidor. Intente con un archivo de menor tamaño.');
+                        botonesALaNormalidad(enviar);
                     }
                 }
                 request.open('post', 'https://compresionappback.herokuapp.com/api/comprimirPoligono/');
